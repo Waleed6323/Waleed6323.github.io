@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waleed Bin Tahir — Python Backend Developer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --surface: #f8f9fa; --border: #e2e8f0;
+    --text: #1e293b; --muted: #64748b; --hint: #94a3b8;
+    --accent: #185FA5; --accent-light: #E6F1FB; --accent-dark: #0C447C;
+    --green-bg: #EAF3DE; --green-text: #3B6D11; --green-border: #C0DD97;
+    --radius: 10px; --radius-sm: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1117; --surface: #1a1d27; --border: #2a2f3e;
+      --text: #e8edf5; --muted: #8892a4; --hint: #555f70;
+      --accent: #4A9EDF; --accent-light: #0d1f35; --accent-dark: #85B7EB;
+      --green-bg: #173404; --green-text: #97C459; --green-border: #3B6D11;
+    }
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.25rem; }
+
+  nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .nav-btn { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 16px; font-size: 13px; cursor: pointer; color: var(--muted); transition: all 0.15s; font-family: inherit; }
+  .nav-btn:hover, .nav-btn.active { background: var(--surface); color: var(--text); border-color: var(--muted); }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .hero { text-align: center; padding: 2.5rem 0 3rem; }
+  .avatar { width: 78px; height: 78px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 500; color: var(--accent-dark); margin: 0 auto 1.3rem; border: 1px solid var(--border); }
+  .hero h1 { font-size: 28px; font-weight: 600; margin-bottom: 6px; }
+  .hero .role { font-size: 15px; color: var(--muted); margin-bottom: 1.1rem; }
+  .badge-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.3rem; }
+  .badge { font-size: 12px; padding: 3px 11px; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); background: var(--surface); }
+  .badge.green { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .hero p { font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 520px; margin: 0 auto 1.6rem; }
+  .cta-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .cta { padding: 8px 20px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text); font-family: inherit; transition: opacity 0.15s; }
+  .cta.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cta:hover { opacity: 0.8; }
+
+  .sec-title { font-size: 11px; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 1rem; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.15rem 1.3rem; margin-bottom: 12px; }
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .card-title { font-size: 15px; font-weight: 600; }
+  .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .period { font-size: 12px; color: var(--hint); white-space: nowrap; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tag { font-size: 11px; padding: 2px 9px; border-radius: 99px; background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+  .tag.blue { background: var(--accent-light); color: var(--accent); border-color: #B5D4F4; }
+  ul.bullets { padding-left: 1.2rem; }
+  ul.bullets li { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 3px; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .skill-group { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; }
+  .skill-label { font-size: 11px; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 12px; padding: 3px 10px; border-radius: 99px; background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .contact-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.15s; text-decoration: none; color: inherit; }
+  .contact-card:hover { border-color: var(--muted); }
+  .c-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; font-weight: 600; }
+  .c-blue { background: var(--accent-light); color: var(--accent); }
+  .c-gray { background: var(--surface); color: var(--muted); }
+  .c-green { background: var(--green-bg); color: var(--green-text); }
+  .c-name { font-weight: 600; font-size: 13px; }
+  .c-val { font-size: 12px; color: var(--muted); }
+
+  footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--hint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <button class="nav-btn active" onclick="show('about',this)">About</button>
+    <button class="nav-btn" onclick="show('skills',this)">Skills</button>
+    <button class="nav-btn" onclick="show('experience',this)">Experience</button>
+    <button class="nav-btn" onclick="show('projects',this)">Projects</button>
+    <button class="nav-btn" onclick="show('contact',this)">Contact</button>
+  </nav>
+
+  <!-- ABOUT -->
+  <div id="about" class="section active">
+    <div class="hero">
+      <div class="avatar">WB</div>
+      <h1>Waleed Bin Tahir</h1>
+      <p class="role">Python Backend Developer</p>
+      <div class="badge-row">
+        <span class="badge green">Available for hire</span>
+        <span class="badge">Rawalpindi, Pakistan</span>
+        <span class="badge">BS Computer Science — SZABIST</span>
+      </div>
+      <p>CS graduate with hands-on backend development experience. Skilled in building REST APIs, database design, authentication systems, and background task automation using Python and Django.</p>
+      <div class="cta-row">
+        <button class="cta primary" onclick="show('projects', document.querySelectorAll('.nav-btn')[3])">View Projects</button>
+        <button class="cta" onclick="show('contact', document.querySelectorAll('.nav-btn')[4])">Get in Touch</button>
+        <button class="cta" onclick="window.open('https://github.com/Waleed6323','_blank')">GitHub</button>
+        <button class="cta" onclick="window.open('https://www.linkedin.com/in/waleed-mir-79b1a821b/','_blank')">LinkedIn</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="skills" class="section">
+    <p class="sec-title">Technical Skills</p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-label">Languages</div>
+        <div class="skill-pills"><span class="pill">Python</span><span class="pill">SQL</span><span class="pill">C/C++</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Backend</div>
+        <div class="skill-pills"><span class="pill">Django</span><span class="pill">Django REST Framework</span><span class="pill">FastAPI</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Databases</div>
+        <div class="skill-pills"><span class="pill">PostgreSQL</span><span class="pill">MySQL</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">APIs & Auth</div>
+        <div class="skill-pills"><span class="pill">REST APIs</span><span class="pill">JWT</span><span class="pill">OAuth 2.0</span><span class="pill">Postman</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Tools</div>
+        <div class="skill-pills"><span class="pill">Git & GitHub</span><span class="pill">VS Code</span><span class="pill">PyCharm</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Concepts</div>
+        <div class="skill-pills"><span class="pill">OOP</span><span class="pill">CRUD</span><span class="pill">DB Normalization</span><span class="pill">Background Tasks</span><span class="pill">Integration Testing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div id="experience" class="section">
+    <p class="sec-title">Work Experience</p>
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">GenAI Trainee — Backend Developer</div><div class="card-sub">Emumba Private Limited · Islamabad</div></div>
+        <span class="period">Jul – Sep 2025</span>
+      </div>
+      <ul class="bullets">
+        <li>Built a full SaaS To-Do List backend using Python and Django REST Framework with JWT auth and OAuth 2.0 (Facebook) login</li>
+        <li>Implemented REST API endpoints for CRUD operations, file upload/download, and role-based access control</li>
+        <li>Developed analytics endpoints covering task completion rates, daily averages, overdue counts, and weekly patterns</li>
+        <li>Configured automated background tasks to send daily email reminders to users about tasks due that day</li>
+        <li>Applied best practices: API logging, environment-based credential management, Git branching, and integration tests</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag blue">Python</span><span class="tag blue">Django</span><span class="tag blue">PostgreSQL</span><span class="tag blue">JWT</span><span class="tag blue">OAuth 2.0</span><span class="tag blue">REST APIs</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">SQL Developer Intern</div><div class="card-sub">Blutech Consulting · Islamabad</div></div>
+        <span class="period">Jun – Aug 2024</span>
+      </div>
+      <ul class="bullets">
+        <li>Wrote and optimized complex SQL queries including joins, subqueries, and aggregate functions against large client datasets</li>
+        <li>Designed and normalized relational MySQL schemas with foreign key constraints for a reporting system</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag blue">MySQL</span><span class="tag blue">SQL</span><span class="tag blue">Database Design</span>
+      </div>
+    </div>
+
+    <p class="sec-title" style="margin-top:1.5rem;">Education</p>
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">BS in Computer Science</div><div class="card-sub">SZABIST University · Islamabad</div></div>
+        <span class="period">2022 – 2026</span>
+      </div>
+      <ul class="bullets">
+        <li>Relevant coursework: Data Structures, Database Systems, Operating Systems, Networks, Software Engineering, OOP</li>
+        <li>Final Year Project: Child Monitoring Application — a full-stack mobile parental control system</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div id="projects" class="section">
+    <p class="sec-title">Projects</p>
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">Child Monitoring Application</div><div class="card-sub">Final Year Project — SZABIST · 2025–2026</div></div>
+      </div>
+      <ul class="bullets">
+        <li>Co-developed a mobile parental control app (team of 3) with JWT + role-based auth, QR-code device pairing, and real-time geo-tracking</li>
+        <li>Built backend modules for app/game/browsing controls, cloud sync, remote device locking, and push notifications</li>
+        <li>Designed a normalized database schema and documented full SRS, SDS, use-case, and ER diagrams</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag blue">Python</span><span class="tag blue">Django</span><span class="tag blue">PostgreSQL</span><span class="tag blue">JWT</span><span class="tag blue">Firebase</span><span class="tag blue">REST APIs</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Pharmacy Management System</div></div></div>
+      <ul class="bullets">
+        <li>Designed normalized relational tables with foreign key constraints and implemented full CRUD operations</li>
+        <li>Built role-based access control with authentication logic for a multi-role pharmacy workflow</li>
+      </ul>
+      <div class="tag-row"><span class="tag blue">Python</span><span class="tag blue">PostgreSQL</span><span class="tag blue">REST APIs</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Real-Time Currency Converter</div></div></div>
+      <ul class="bullets">
+        <li>Integrated a live exchange-rate API with robust exception handling for network and API errors</li>
+      </ul>
+      <div class="tag-row"><span class="tag blue">Python</span><span class="tag blue">REST API Integration</span><span class="tag blue">Requests Library</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Football League Database Management System</div></div></div>
+      <ul class="bullets">
+        <li>Implemented complex SQL queries with subqueries, INNER JOINs, aggregate functions, and DML operations for managing league data</li>
+      </ul>
+      <div class="tag-row"><span class="tag blue">SQL</span><span class="tag blue">MySQL</span></div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="section">
+    <p class="sec-title">Get in Touch</p>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:wmir6323@gmail.com">
+        <div class="c-icon c-blue">@</div>
+        <div><div class="c-name">Email</div><div class="c-val">wmir6323@gmail.com</div></div>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/waleed-mir-79b1a821b/" target="_blank">
+        <div class="c-icon c-blue">in</div>
+        <div><div class="c-name">LinkedIn</div><div class="c-val">waleed-mir</div></div>
+      </a>
+      <a class="contact-card" href="https://github.com/Waleed6323" target="_blank">
+        <div class="c-icon c-gray">GH</div>
+        <div><div class="c-name">GitHub</div><div class="c-val">Waleed6323</div></div>
+      </a>
+      <div class="contact-card">
+        <div class="c-icon c-green">☎</div>
+        <div><div class="c-name">Phone</div><div class="c-val">+92-335-0080213</div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Waleed Bin Tahir · Python Backend Developer · Rawalpindi, Pakistan</footer>
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
