@@ -1,238 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Waleed Bin Tahir | Backend Developer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waleed Bin Tahir | Backend Developer</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #e2e8f0;
+}
 
-    body {
-      background: #0f172a;
-      color: #e2e8f0;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
 
-    .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: auto;
-    }
+header {
+  text-align: center;
+  padding: 100px 20px;
+}
 
-    header {
-      padding: 80px 0;
-      text-align: center;
-      animation: fadeIn 1.2s ease-in-out;
-    }
+h1 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    header h1 {
-      font-size: 2.8rem;
-      color: #38bdf8;
-    }
+.subtitle {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #94a3b8;
+}
 
-    header p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #94a3b8;
-    }
+.hero-btns a {
+  margin: 10px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    .buttons {
-      margin-top: 20px;
-    }
+.primary {
+  background: #38bdf8;
+  color: #020617;
+}
 
-    .buttons a {
-      text-decoration: none;
-      margin: 10px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      display: inline-block;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
+.primary:hover {
+  transform: scale(1.05);
+}
 
-    .btn-primary {
-      background: #38bdf8;
-      color: #0f172a;
-    }
+.outline {
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(56,189,248,0.3);
-    }
+.outline:hover {
+  background: #38bdf8;
+  color: #020617;
+}
 
-    .btn-outline {
-      border: 1px solid #38bdf8;
-      color: #38bdf8;
-    }
+section {
+  margin: 80px 0;
+}
 
-    .btn-outline:hover {
-      background: #38bdf8;
-      color: #0f172a;
-    }
+h2 {
+  margin-bottom: 20px;
+  color: #38bdf8;
+}
 
-    section {
-      margin: 80px 0;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
 
-    h2 {
-      margin-bottom: 20px;
-      color: #38bdf8;
-      border-bottom: 2px solid #1e293b;
-      padding-bottom: 10px;
-    }
+.skills span {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #1e293b;
+  transition: 0.3s;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.skills span:hover {
+  background: #38bdf8;
+  color: #020617;
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
+.project {
+  border-left: 4px solid #38bdf8;
+}
 
-    .skills span {
-      display: inline-block;
-      background: #334155;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin: 5px;
-      font-size: 0.9rem;
-      transition: 0.3s;
-    }
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+}
 
-    .skills span:hover {
-      background: #38bdf8;
-      color: #0f172a;
-    }
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.8s;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-      animation: fadeIn 1.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- HERO -->
-    <header>
-      <h1>Waleed Bin Tahir</h1>
-      <p>Backend Developer | Django | REST APIs | AWS</p>
-      <p>Building scalable SaaS systems with secure authentication (JWT, OAuth)</p>
+<header>
+  <h1>Waleed Bin Tahir</h1>
+  <p class="subtitle">Backend Developer | Django | APIs | AWS</p>
+  <p class="subtitle">I build scalable backend systems with secure authentication & automation</p>
 
-      <div class="buttons">
-        <a href="https://github.com/waleedmeer" class="btn-primary">View GitHub</a>
-        <a href="mailto:waleedmeer121@gmail.com" class="btn-outline">Contact Me</a>
-      </div>
-    </header>
-
-    <!-- ABOUT -->
-    <section>
-      <h2>About Me</h2>
-      <div class="card">
-        <p>
-          Backend Developer experienced in building scalable SaaS systems using Django REST Framework, 
-          secure authentication, and cloud deployment.
-        </p>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section>
-      <h2>Experience</h2>
-      <div class="card">
-        <h3>Software Engineer Intern — Emumba</h3>
-        <p>Built 15+ APIs and analytics endpoints with scalable backend architecture.</p>
-      </div>
-    </section>
-
-    <!-- PROJECT -->
-    <section>
-      <h2>Featured Project</h2>
-      <div class="card">
-        <h3>SaaS To-Do Backend System</h3>
-        <p>JWT + OAuth authentication, background jobs, analytics, AWS deployment.</p>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section>
-      <h2>Tech Stack</h2>
-      <div class="card skills">
-        <span>Django</span>
-        <span>DRF</span>
-        <span>PostgreSQL</span>
-        <span>AWS</span>
-        <span>JWT</span>
-        <span>OAuth</span>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section>
-      <h2>Contact</h2>
-      <div class="card">
-        <p>Email: waleedmeer121@gmail.com</p>
-        <p>GitHub: github.com/waleedmeer</p>
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2026 Waleed Bin Tahir</p>
-    </footer>
-
+  <div class="hero-btns">
+    <a href="https://github.com/waleedmeer" class="primary">GitHub</a>
+    <a href="mailto:waleedmeer121@gmail.com" class="outline">Contact</a>
   </div>
+</header>
 
-  <!-- JS for scroll animation -->
-  <script>
-    const sections = document.querySelectorAll("section");
+<section class="fade">
+<h2>About</h2>
+<div class="card">
+Backend Developer focused on Django REST Framework, building scalable SaaS systems with JWT authentication, background jobs, and cloud deployment.
+</div>
+</section>
 
-    window.addEventListener("scroll", () => {
-      const trigger = window.innerHeight * 0.85;
+<section class="fade">
+<h2>Experience</h2>
+<div class="card">
+<strong>Software Engineer Intern — Emumba</strong><br><br>
+Built 15+ APIs and analytics endpoints, improving backend performance and scalability.
+</div>
+</section>
 
-      sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
+<section class="fade">
+<h2>Featured Project</h2>
+<div class="card project">
+<strong>SaaS To-Do Backend System</strong><br><br>
+• JWT + OAuth authentication<br>
+• Background email automation<br>
+• PostgreSQL optimized queries<br>
+• AWS deployment<br><br>
+<a href="https://github.com/waleedmeer" class="primary">View Code</a>
+</div>
+</section>
 
-        if (top < trigger) {
-          section.classList.add("show");
-        }
-      });
-    });
-  </script>
+<section class="fade">
+<h2>Tech Stack</h2>
+<div class="card skills">
+<span>Django</span>
+<span>DRF</span>
+<span>PostgreSQL</span>
+<span>AWS</span>
+<span>JWT</span>
+<span>OAuth</span>
+</div>
+</section>
+
+<section class="fade">
+<h2>Proof of Work</h2>
+<div class="card">
+• 15+ REST APIs<br>
+• 5 analytics systems<br>
+• Authentication systems<br>
+• Background task automation
+</div>
+</section>
+
+<section class="fade">
+<h2>Contact</h2>
+<div class="card">
+Email: waleedmeer121@gmail.com<br>
+GitHub: github.com/waleedmeer
+</div>
+</section>
+
+<footer>
+© 2026 Waleed Bin Tahir
+</footer>
+
+</div>
+
+<script>
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight * 0.85;
+
+  elements.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < trigger) {
+      el.classList.add('show');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
