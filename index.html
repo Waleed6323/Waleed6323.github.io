@@ -1,241 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Waleed Bin Tahir — Python Backend Developer</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #ffffff; --surface: #f8f9fa; --border: #e2e8f0;
-    --text: #1e293b; --muted: #64748b; --hint: #94a3b8;
-    --accent: #185FA5; --accent-light: #E6F1FB; --accent-dark: #0C447C;
-    --green-bg: #EAF3DE; --green-text: #3B6D11; --green-border: #C0DD97;
-    --radius: 12px; --radius-sm: 8px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1117; --surface: #1a1d27; --border: #2a2f3e;
-      --text: #e8edf5; --muted: #8892a4; --hint: #555f70;
-      --accent: #4A9EDF; --accent-light: #0d1f35; --accent-dark: #85B7EB;
-      --green-bg: #173404; --green-text: #97C459; --green-border: #3B6D11;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Waleed Bin Tahir | Backend Developer</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
-  }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; min-height: 100vh; }
-  .wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.25rem; }
-  nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-  .nb { background: transparent; border: none; padding: 7px 16px; font-size: 13px; cursor: pointer; color: var(--muted); border-radius: var(--radius-sm); font-family: inherit; transition: all 0.15s; }
-  .nb:hover, .nb.on { background: var(--surface); color: var(--text); font-weight: 500; }
-  .sec { display: none; } .sec.on { display: block; }
-  .hero { padding: 2rem 0 2.5rem; }
-  .av { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: var(--accent-dark); margin-bottom: 1.2rem; border: 1px solid var(--border); }
-  .hero h1 { font-size: 28px; font-weight: 600; margin-bottom: 6px; }
-  .tagline { font-size: 15px; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; max-width: 500px; }
-  .tagline strong { color: var(--text); font-weight: 600; }
-  .brow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.4rem; }
-  .b { font-size: 12px; padding: 3px 11px; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); background: var(--surface); }
-  .b.g { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
-  .hero-bio { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 1.6rem; border-left: 2px solid var(--border); padding-left: 1rem; }
-  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
-  .cta { padding: 8px 20px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text); font-family: inherit; transition: opacity 0.15s; }
-  .cta.pr { background: var(--accent); color: #E6F1FB; border-color: var(--accent); }
-  .cta:hover { opacity: 0.75; }
-  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 10px; margin-bottom: 2rem; }
-  .m { background: var(--surface); border-radius: var(--radius-sm); padding: 1rem; }
-  .m-n { font-size: 24px; font-weight: 600; margin-bottom: 2px; }
-  .m-l { font-size: 12px; color: var(--muted); }
-  .blue { color: var(--accent); } .grn { color: var(--green-text); } .amb { color: #BA7517; } .tel { color: #0F6E56; }
-  .st { font-size: 11px; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 1rem; }
-  .card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.15rem 1.3rem; margin-bottom: 12px; transition: border-color 0.15s; }
-  .card:hover { border-color: var(--muted); }
-  .ch { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 5px; }
-  .ct { font-size: 15px; font-weight: 600; }
-  .cs { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
-  .per { font-size: 12px; color: var(--hint); white-space: nowrap; }
-  ul.bl { padding-left: 1.2rem; }
-  ul.bl li { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 3px; }
-  ul.bl li strong { color: var(--text); font-weight: 600; }
-  .tr { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
-  .tg { font-size: 11px; padding: 2px 9px; border-radius: 99px; background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
-  .tg.bl2 { background: var(--accent-light); color: var(--accent); border-color: #B5D4F4; }
-  .tg.gr { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
-  .proof { background: var(--surface); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 10px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-  .proof-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-text); flex-shrink: 0; }
-  .proj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-  .pbadge { font-size: 11px; padding: 2px 9px; border-radius: 99px; background: var(--accent-light); color: var(--accent); border: 1px solid #B5D4F4; white-space: nowrap; }
-  .pbadge.fyp { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
-  .sg { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 10px; }
-  .sk { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-  .sl { font-size: 11px; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
-  .sp { display: flex; flex-wrap: wrap; gap: 5px; }
-  .pill { font-size: 12px; padding: 3px 10px; border-radius: 99px; background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-  .cg { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 10px; }
-  .cc { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.15s; text-decoration: none; color: inherit; }
-  .cc:hover { border-color: var(--muted); }
-  .ci { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; font-weight: 600; }
-  .ci-b { background: var(--accent-light); color: var(--accent); }
-  .ci-g { background: var(--green-bg); color: var(--green-text); }
-  .ci-gr { background: var(--surface); color: var(--muted); }
-  .cn { font-weight: 600; font-size: 13px; }
-  .cv2 { font-size: 12px; color: var(--muted); }
-  footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--hint); }
-</style>
+
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      padding: 80px 0;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: #38bdf8;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #94a3b8;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(56,189,248,0.3);
+    }
+
+    .btn-outline {
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .btn-outline:hover {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    section {
+      margin: 80px 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #38bdf8;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 10px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .skills span {
+      display: inline-block;
+      background: #334155;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin: 5px;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .skills span:hover {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <nav>
-    <button class="nb on" onclick="go('about',this)">About</button>
-    <button class="nb" onclick="go('skills',this)">Skills</button>
-    <button class="nb" onclick="go('exp',this)">Experience</button>
-    <button class="nb" onclick="go('proj',this)">Projects</button>
-    <button class="nb" onclick="go('contact',this)">Contact</button>
-  </nav>
 
-  <div id="about" class="sec on">
-    <div class="hero">
-      <div class="av">WB</div>
+  <div class="container">
+
+    <!-- HERO -->
+    <header>
       <h1>Waleed Bin Tahir</h1>
-      <p class="tagline">I build <strong>backend systems that actually work</strong> — clean APIs, secure auth, real databases.</p>
-      <div class="brow">
-        <span class="b g">Open to work</span>
-        <span class="b">Python · Django · PostgreSQL</span>
-        <span class="b">Rawalpindi, Pakistan</span>
+      <p>Backend Developer | Django | REST APIs | AWS</p>
+      <p>Building scalable SaaS systems with secure authentication (JWT, OAuth)</p>
+
+      <div class="buttons">
+        <a href="https://github.com/waleedmeer" class="btn-primary">View GitHub</a>
+        <a href="mailto:waleedmeer121@gmail.com" class="btn-outline">Contact Me</a>
       </div>
-      <p class="hero-bio">CS graduate from SZABIST. Interned at Emumba where I built a production SaaS backend from scratch — auth, file handling, analytics, background tasks, tested and documented. Also co-built a full mobile parental control app as my final year project. I write code that's readable, secure, and easy to maintain.</p>
-      <div class="btns">
-        <button class="cta pr" onclick="go('proj', document.querySelectorAll('.nb')[3])">See my work</button>
-        <button class="cta" onclick="go('contact', document.querySelectorAll('.nb')[4])">Get in touch</button>
-        <button class="cta" onclick="window.open('https://github.com/Waleed6323','_blank')">GitHub</button>
-        <button class="cta" onclick="window.open('https://www.linkedin.com/in/waleed-mir-79b1a821b/','_blank')">LinkedIn</button>
+    </header>
+
+    <!-- ABOUT -->
+    <section>
+      <h2>About Me</h2>
+      <div class="card">
+        <p>
+          Backend Developer experienced in building scalable SaaS systems using Django REST Framework, 
+          secure authentication, and cloud deployment.
+        </p>
       </div>
-    </div>
-    <p class="st">At a glance</p>
-    <div class="metrics">
-      <div class="m"><div class="m-n blue">2</div><div class="m-l">Internships completed</div></div>
-      <div class="m"><div class="m-n grn">4+</div><div class="m-l">Projects built</div></div>
-      <div class="m"><div class="m-n amb">3</div><div class="m-l">Months SaaS backend</div></div>
-      <div class="m"><div class="m-n tel">5+</div><div class="m-l">Tech skills</div></div>
-    </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section>
+      <h2>Experience</h2>
+      <div class="card">
+        <h3>Software Engineer Intern — Emumba</h3>
+        <p>Built 15+ APIs and analytics endpoints with scalable backend architecture.</p>
+      </div>
+    </section>
+
+    <!-- PROJECT -->
+    <section>
+      <h2>Featured Project</h2>
+      <div class="card">
+        <h3>SaaS To-Do Backend System</h3>
+        <p>JWT + OAuth authentication, background jobs, analytics, AWS deployment.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section>
+      <h2>Tech Stack</h2>
+      <div class="card skills">
+        <span>Django</span>
+        <span>DRF</span>
+        <span>PostgreSQL</span>
+        <span>AWS</span>
+        <span>JWT</span>
+        <span>OAuth</span>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Email: waleedmeer121@gmail.com</p>
+        <p>GitHub: github.com/waleedmeer</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Waleed Bin Tahir</p>
+    </footer>
+
   </div>
 
-  <div id="skills" class="sec">
-    <p class="st">Technical skills</p>
-    <div class="sg">
-      <div class="sk"><div class="sl">Languages</div><div class="sp"><span class="pill">Python</span><span class="pill">SQL</span><span class="pill">Dart</span><span class="pill">C/C++</span></div></div>
-      <div class="sk"><div class="sl">Backend</div><div class="sp"><span class="pill">Django</span><span class="pill">Django REST Framework</span></div></div>
-      <div class="sk"><div class="sl">Databases</div><div class="sp"><span class="pill">PostgreSQL</span><span class="pill">MySQL</span></div></div>
-      <div class="sk"><div class="sl">Auth & APIs</div><div class="sp"><span class="pill">JWT</span><span class="pill">OAuth 2.0</span><span class="pill">REST APIs</span><span class="pill">Postman</span></div></div>
-      <div class="sk"><div class="sl">Tools</div><div class="sp"><span class="pill">Git & GitHub</span><span class="pill">VS Code</span><span class="pill">PyCharm</span></div></div>
-      <div class="sk"><div class="sl">Concepts</div><div class="sp"><span class="pill">OOP</span><span class="pill">DB Normalization</span><span class="pill">Background Tasks</span><span class="pill">Integration Testing</span></div></div>
-    </div>
-    <div style="margin-top:1.5rem; padding:1rem 1.25rem; border:1px solid var(--border); border-radius:var(--radius);">
-      <p class="st" style="margin-bottom:0.5rem;">Currently learning</p>
-      <div class="sp"><span class="tg gr">FastAPI</span><span class="tg gr">Docker</span><span class="tg gr">Redis</span></div>
-    </div>
-  </div>
+  <!-- JS for scroll animation -->
+  <script>
+    const sections = document.querySelectorAll("section");
 
-  <div id="exp" class="sec">
-    <p class="st">Work experience</p>
-    <div class="card">
-      <div class="ch">
-        <div><div class="ct">Backend Developer Intern</div><div class="cs">Emumba Private Limited · Islamabad</div></div>
-        <span class="per">Jul – Sep 2025</span>
-      </div>
-      <ul class="bl">
-        <li>Built a <strong>SaaS To-Do backend from scratch</strong> — JWT auth, email verification, OAuth 2.0 (Facebook)</li>
-        <li>Designed <strong>REST APIs</strong> for CRUD, file upload/download, and strict user-level data isolation</li>
-        <li>Built <strong>analytics endpoints</strong> — completion rates, daily averages, overdue tracking, weekly patterns</li>
-        <li>Wrote <strong>background tasks</strong> (Celery/cron) for automated daily email reminders</li>
-        <li>Applied production practices: <strong>API logging, env-based credentials, Git branching, integration tests</strong></li>
-      </ul>
-      <div class="proof"><div class="proof-dot"></div>Real production project — not a tutorial. Built, tested, and documented end-to-end.</div>
-      <div class="tr"><span class="tg bl2">Python</span><span class="tg bl2">Django</span><span class="tg bl2">PostgreSQL</span><span class="tg bl2">JWT</span><span class="tg bl2">OAuth 2.0</span><span class="tg bl2">Celery</span></div>
-    </div>
-    <div class="card">
-      <div class="ch">
-        <div><div class="ct">SQL Developer Intern</div><div class="cs">Blutech Consulting · Islamabad</div></div>
-        <span class="per">Jun – Aug 2024</span>
-      </div>
-      <ul class="bl">
-        <li>Optimized complex SQL queries — joins, subqueries, aggregates — against large client datasets</li>
-        <li>Designed normalized MySQL schemas with foreign key constraints for a reporting system</li>
-      </ul>
-      <div class="tr"><span class="tg bl2">MySQL</span><span class="tg bl2">SQL</span><span class="tg bl2">DB Design</span></div>
-    </div>
-    <p class="st" style="margin-top:1.5rem;">Education</p>
-    <div class="card">
-      <div class="ch">
-        <div><div class="ct">BS Computer Science</div><div class="cs">SZABIST University · Islamabad</div></div>
-        <span class="per">2022 – 2026</span>
-      </div>
-      <ul class="bl">
-        <li>Data Structures, Database Systems, OS, Networks, Software Engineering, OOP</li>
-        <li>Final Year Project: Child Monitoring Application — mobile parental control system</li>
-      </ul>
-    </div>
-  </div>
+    window.addEventListener("scroll", () => {
+      const trigger = window.innerHeight * 0.85;
 
-  <div id="proj" class="sec">
-    <p class="st">Projects</p>
-    <div class="card">
-      <div class="proj-top">
-        <div><div class="ct">Child Monitoring Application</div><div class="cs">Family Guard — Final Year Project, SZABIST · 2025–2026</div></div>
-        <span class="pbadge fyp">FYP</span>
-      </div>
-      <ul class="bl">
-        <li>Mobile parental control app — <strong>team of 3</strong>, built across 12 Agile sprints</li>
-        <li>Backend: <strong>JWT auth, role-based access, QR-code device pairing</strong>, geo-tracking with safe zone alerts</li>
-        <li>Features: app/browsing controls, remote device lock, cloud sync, push notifications, PDF/Excel export</li>
-        <li>Full documentation: SRS, SDS, ER diagrams, use-case diagrams, unit + integration + system tests</li>
-      </ul>
-      <div class="proof"><div class="proof-dot"></div>12 sprints · 3-person team · Full test plan written and executed</div>
-      <div class="tr"><span class="tg bl2">Python</span><span class="tg bl2">Dart (Flutter)</span><span class="tg bl2">SQL</span><span class="tg bl2">JSON</span><span class="tg bl2">JWT</span><span class="tg bl2">Cloud Sync</span></div>
-    </div>
-    <div class="card">
-      <div class="proj-top">
-        <div><div class="ct">SaaS To-Do Backend</div><div class="cs">Emumba Internship Project · 2025</div></div>
-        <span class="pbadge">Internship</span>
-      </div>
-      <ul class="bl">
-        <li>Full backend for a multi-user SaaS — auth, CRUD, file handling, analytics, background jobs</li>
-        <li>OAuth 2.0 (Facebook), JWT, email verification, strict per-user data isolation</li>
-        <li>Similarity-detection algorithm, automated reminders, API docs, integration tests</li>
-      </ul>
-      <div class="proof"><div class="proof-dot"></div>Built at a real company — production standards applied throughout</div>
-      <div class="tr"><span class="tg bl2">Python</span><span class="tg bl2">Django</span><span class="tg bl2">PostgreSQL</span><span class="tg bl2">JWT</span><span class="tg bl2">OAuth 2.0</span><span class="tg bl2">Celery</span></div>
-    </div>
-    <div class="card">
-      <div class="ct" style="margin-bottom:6px;">Pharmacy Management System</div>
-      <ul class="bl"><li>Role-based access control, normalized schema, full CRUD for a multi-role pharmacy workflow</li></ul>
-      <div class="tr"><span class="tg bl2">Python</span><span class="tg bl2">PostgreSQL</span><span class="tg bl2">REST APIs</span></div>
-    </div>
-    <div class="card">
-      <div class="ct" style="margin-bottom:6px;">Real-Time Currency Converter</div>
-      <ul class="bl"><li>Live exchange-rate API integration with robust error handling for network, input, and API failures</li></ul>
-      <div class="tr"><span class="tg bl2">Python</span><span class="tg bl2">REST API</span><span class="tg bl2">Requests</span></div>
-    </div>
-  </div>
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
 
-  <div id="contact" class="sec">
-    <p class="st">Get in touch</p>
-    <p style="max-width:480px; margin-bottom:1.5rem; font-size:14px; color:var(--muted); line-height:1.8;">I'm actively looking for backend developer roles. If you're hiring or want to collaborate, reach out — I respond fast.</p>
-    <div class="cg">
-      <a class="cc" href="mailto:wmir6323@gmail.com"><div class="ci ci-b">@</div><div><div class="cn">Email</div><div class="cv2">wmir6323@gmail.com</div></div></a>
-      <a class="cc" href="https://www.linkedin.com/in/waleed-mir-79b1a821b/" target="_blank"><div class="ci ci-b">in</div><div><div class="cn">LinkedIn</div><div class="cv2">waleed-mir</div></div></a>
-      <a class="cc" href="https://github.com/Waleed6323" target="_blank"><div class="ci ci-gr">GH</div><div><div class="cn">GitHub</div><div class="cv2">Waleed6323</div></div></a>
-      <div class="cc"><div class="ci ci-g">PK</div><div><div class="cn">Phone</div><div class="cv2">+92-335-0080213</div></div></div>
-    </div>
-  </div>
+        if (top < trigger) {
+          section.classList.add("show");
+        }
+      });
+    });
+  </script>
 
-  <footer>Waleed Bin Tahir · Python Backend Developer · Rawalpindi, Pakistan</footer>
-</div>
-<script>
-  function go(id, btn) {
-    document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-    document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
-    document.getElementById(id).classList.add('on');
-    if (btn) btn.classList.add('on');
-  }
-</script>
 </body>
 </html>
